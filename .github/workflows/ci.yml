@@ -34,8 +34,8 @@ jobs:
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: dependencysnapshot-plugin-jar
-          path: dependencysnapshot-plugin/target/*.jar
+          name: dependency-snapshot-plugin-jar
+          path: dependency-snapshot-plugin/target/*.jar
           if-no-files-found: error
 
       - name: Upload test reports
@@ -44,5 +44,5 @@ jobs:
         with:
           name: surefire-reports
           path: |
-            dependencysnapshot-plugin/target/surefire-reports/**
+            dependency-snapshot-plugin/target/surefire-reports/**
           if-no-files-found: warn

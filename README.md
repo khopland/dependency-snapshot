@@ -1,13 +1,13 @@
-# dependencysnapshot
+# dependency-snapshot
 
-`dependencysnapshot` is a Maven plugin that snapshots the resolved dependency graph for a build, compares it with the previous build's snapshot, logs a diff, and can write both text and JSON reports to disk.
+`dependency-snapshot` is a Maven plugin that snapshots the resolved dependency graph for a build, compares it with the previous build's snapshot, logs a diff, and can write both text and JSON reports to disk.
 
 ## Features
 
 - Diffs the resolved dependency set, including transitives
-- Persists the previous build baseline under `.mvn/dependencysnapshot/`
+- Persists the previous build baseline under `.mvn/dependency-snapshot/`
 - Supports one reactor-wide snapshot or one snapshot per module
-- Writes human-readable and machine-readable reports under `target/dependencysnapshot/`
+- Writes human-readable and machine-readable reports under `target/dependency-snapshot/`
 - Can optionally fail the build when dependency changes are detected
 
 ## Plugin Coordinates
@@ -15,7 +15,7 @@
 ```xml
 <plugin>
   <groupId>com.github.khopland</groupId>
-  <artifactId>dependencysnapshot-mojo</artifactId>
+  <artifactId>dependency-snapshot-plugin</artifactId>
   <version>1.0-SNAPSHOT</version>
 </plugin>
 ```
@@ -25,14 +25,14 @@
 ```xml
 <plugin>
   <groupId>com.github.khopland</groupId>
-  <artifactId>dependencysnapshot-mojo</artifactId>
+  <artifactId>dependency-snapshot-plugin</artifactId>
   <version>1.0-SNAPSHOT</version>
   <executions>
     <execution>
       <id>dependency-diff</id>
       <phase>verify</phase>
       <goals>
-        <goal>diff</goal>
+        <goal>snapshot</goal>
       </goals>
     </execution>
   </executions>
@@ -44,14 +44,14 @@
 ```xml
 <plugin>
   <groupId>com.github.khopland</groupId>
-  <artifactId>dependencysnapshot-mojo</artifactId>
+  <artifactId>dependency-snapshot-plugin</artifactId>
   <version>1.0-SNAPSHOT</version>
   <executions>
     <execution>
       <id>dependency-diff</id>
       <phase>verify</phase>
       <goals>
-        <goal>diff</goal>
+        <goal>snapshot</goal>
       </goals>
       <configuration>
         <aggregate>true</aggregate>
@@ -69,12 +69,12 @@
 
 - `aggregate` default `true`
 - `failOnChange` default `false`
-- `snapshotDirectory` default `${session.executionRootDirectory}/.mvn/dependencysnapshot`
+- `snapshotDirectory` default `${session.executionRootDirectory}/.mvn/dependency-snapshot`
 - `skip` default `false`
 - `createSnapshotIfMissing` default `true`
 - `writeReportFiles` default `true`
 - `writeReportsOnNoChange` default `false`
-- `reportOutputDirectory` default `${session.executionRootDirectory}/target/dependencysnapshot`
+- `reportOutputDirectory` default `${session.executionRootDirectory}/target/dependency-snapshot`
 - `writeTextReport` default `true`
 - `writeJsonReport` default `true`
 
@@ -89,31 +89,44 @@ If a project configures:
 the plugin now gives Maven user properties explicit precedence, so you can override it at build time with:
 
 ```bash
-mvn verify -Ddependencysnapshot.failOnChange=false
+mvn verify -Ddependency-snapshot.failOnChange=false
 ```
 
-You can also use a profile that changes the plugin configuration:
+For a profile-based override, the reliable pattern is to make the plugin configuration read from a property:
 
 ```xml
+<properties>
+  <dependency-snapshot.failOnChange>true</dependency-snapshot.failOnChange>
+</properties>
+
+<build>
+  <plugins>
+    <plugin>
+      <groupId>com.github.khopland</groupId>
+      <artifactId>dependency-snapshot-plugin</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <executions>
+        <execution>
+          <id>dependency-diff</id>
+          <phase>verify</phase>
+          <goals>
+            <goal>snapshot</goal>
+          </goals>
+          <configuration>
+            <failOnChange>${dependency-snapshot.failOnChange}</failOnChange>
+          </configuration>
+        </execution>
+      </executions>
+    </plugin>
+  </plugins>
+</build>
+
 <profiles>
   <profile>
-    <id>allow-dependency-diff</id>
-    <build>
-      <plugins>
-        <plugin>
-          <groupId>com.github.khopland</groupId>
-          <artifactId>dependencysnapshot-mojo</artifactId>
-          <executions>
-            <execution>
-              <id>dependency-diff</id>
-              <configuration>
-                <failOnChange>false</failOnChange>
-              </configuration>
-            </execution>
-          </executions>
-        </plugin>
-      </plugins>
-    </build>
+    <id>allow-dependency-snapshot-change</id>
+    <properties>
+      <dependency-snapshot.failOnChange>false</dependency-snapshot.failOnChange>
+    </properties>
   </profile>
 </profiles>
 ```
@@ -121,7 +134,7 @@ You can also use a profile that changes the plugin configuration:
 Then run:
 
 ```bash
-mvn verify -Pallow-dependency-diff
+mvn verify -Pallow-dependency-snapshot-change
 ```
 
 The direct CLI flag has the highest precedence, so it is the simplest way to temporarily disable `failOnChange` for one build.
@@ -130,13 +143,13 @@ The direct CLI flag has the highest precedence, so it is the simplest way to tem
 
 Aggregate mode writes:
 
-- `target/dependencysnapshot/dependency-diff.txt`
-- `target/dependencysnapshot/dependency-diff.json`
+- `target/dependency-snapshot/dependency-diff.txt`
+- `target/dependency-snapshot/dependency-diff.json`
 
 Per-module mode writes:
 
-- `target/dependencysnapshot/<group>_<artifact>-dependency-diff.txt`
-- `target/dependencysnapshot/<group>_<artifact>-dependency-diff.json`
+- `target/dependency-snapshot/<group>_<artifact>-dependency-diff.txt`
+- `target/dependency-snapshot/<group>_<artifact>-dependency-diff.json`
 
 The snapshot baseline is stored outside `target/`, so `mvn clean verify` still compares against the last build.
 

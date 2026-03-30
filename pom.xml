@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.khopland</groupId>
-    <artifactId>dependencysnapshot</artifactId>
+    <artifactId>dependency-snapshot</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
-        <module>dependencysnapshot-plugin</module>
+        <module>dependency-snapshot-plugin</module>
     </modules>
 
     <properties>
