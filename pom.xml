@@ -12,7 +12,11 @@
         <module>dependency-snapshot-plugin</module>
     </modules>
 
+    <name>dependency snapshot (Parent)</name>
+    <url>https://github.com/khopland/dependency-snapshot</url>
+
     <properties>
+
         <java.version>17</java.version>
         <maven.compiler.release>${java.version}</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -22,6 +26,47 @@
         <maven.plugin.tools.version>3.15.2</maven.plugin.tools.version>
         <maven.plugin.plugin.version>3.15.0</maven.plugin.plugin.version>
         <maven.surefire.version>3.5.5</maven.surefire.version>
+        <repository.git-url>git@github.com:khopland/dependency-snapshot.git</repository.git-url>
     </properties>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>khopland</id>
+            <name>Kristoffer L. Hopland</name>
+            <email>24739853+khopland@users.noreply.github.com </email>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
+
+    <issueManagement>
+        <system>github.com</system>
+        <url>https://github.com/khopland/dependency-snapshot/issues</url>
+    </issueManagement>
+    <scm>
+        <connection>scm:git:${repository.git-url}</connection>
+        <developerConnection>scm:git:${repository.git-url}</developerConnection>
+        <url>https://github.com/khopland/dependency-snapshot</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/khopland/dependency-snapshot</url>
+        </repository>
+    </distributionManagement>
 
 </project>

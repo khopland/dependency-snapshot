@@ -11,6 +11,7 @@
 
     <artifactId>dependency-snapshot-plugin</artifactId>
     <name>dependency snapshot plugin</name>
+    <description>Maven plugin to take snapshots of you dependencies</description>
     <packaging>maven-plugin</packaging>
 
     <dependencies>

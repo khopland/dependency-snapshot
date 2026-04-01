@@ -14,7 +14,7 @@
 
 ```xml
 <plugin>
-  <groupId>com.github.khopland</groupId>
+  <groupId>io.github.khopland</groupId>
   <artifactId>dependency-snapshot-plugin</artifactId>
   <version>1.0-SNAPSHOT</version>
 </plugin>
@@ -24,7 +24,7 @@
 
 ```xml
 <plugin>
-  <groupId>com.github.khopland</groupId>
+  <groupId>io.github.khopland</groupId>
   <artifactId>dependency-snapshot-plugin</artifactId>
   <version>1.0-SNAPSHOT</version>
   <executions>
@@ -43,7 +43,7 @@
 
 ```xml
 <plugin>
-  <groupId>com.github.khopland</groupId>
+  <groupId>io.github.khopland</groupId>
   <artifactId>dependency-snapshot-plugin</artifactId>
   <version>1.0-SNAPSHOT</version>
   <executions>
@@ -102,7 +102,7 @@ For a profile-based override, the reliable pattern is to make the plugin configu
 <build>
   <plugins>
     <plugin>
-      <groupId>com.github.khopland</groupId>
+      <groupId>io.github.khopland</groupId>
       <artifactId>dependency-snapshot-plugin</artifactId>
       <version>1.0-SNAPSHOT</version>
       <executions>
@@ -138,6 +138,68 @@ mvn verify -Pallow-dependency-snapshot-change
 ```
 
 The direct CLI flag has the highest precedence, so it is the simplest way to temporarily disable `failOnChange` for one build.
+
+## Publish To GitHub Packages
+
+This project is configured to publish with Maven `deploy` to:
+
+`https://maven.pkg.github.com/khopland/dependency-snapshot`
+
+### Publish from GitHub Actions
+
+A workflow is included at `.github/workflows/publish.yml` and runs when:
+
+- A GitHub Release is published
+- You trigger it manually (`workflow_dispatch`)
+
+It uses the built-in `GITHUB_TOKEN` and publishes with:
+
+```bash
+mvn -B -ntp clean deploy
+```
+
+## Automatic SemVer Version Bump
+
+A workflow is included at `.github/workflows/bump-version.yml` that bumps Maven versions automatically following SemVer.
+
+### How it works
+
+- Trigger it manually from **Actions** -> **Bump Version**
+- Choose bump type: `patch`, `minor`, or `major`
+- Choose whether to append `-SNAPSHOT`
+- The workflow updates `pom.xml` files, commits, and pushes the change
+
+### SemVer behavior
+
+- `patch`: `x.y.z` -> `x.y.(z+1)`
+- `minor`: `x.y.z` -> `x.(y+1).0`
+- `major`: `x.y.z` -> `(x+1).0.0`
+
+It accepts versions in the form `x.y.z` or `x.y.z-SNAPSHOT`.
+
+### Publish from local machine
+
+Create or update `~/.m2/settings.xml`:
+
+```xml
+<settings>
+  <servers>
+    <server>
+      <id>github</id>
+      <username>YOUR_GITHUB_USERNAME</username>
+      <password>YOUR_GITHUB_PERSONAL_ACCESS_TOKEN</password>
+    </server>
+  </servers>
+</settings>
+```
+
+Your token needs package write access (`write:packages`).
+
+Then publish with:
+
+```bash
+mvn clean deploy
+```
 
 ## Output
 
