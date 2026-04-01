@@ -1,4 +1,4 @@
-package com.github.khopland.dependency.snapshot.dto;
+package io.github.khopland.dependency.snapshot.dto;
 
 public record ReportSummary(
         int addedDependencies,

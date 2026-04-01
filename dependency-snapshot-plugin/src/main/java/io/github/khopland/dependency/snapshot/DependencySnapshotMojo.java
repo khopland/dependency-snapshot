@@ -1,8 +1,8 @@
-package com.github.khopland.dependency.snapshot;
+package io.github.khopland.dependency.snapshot;
 
-import com.github.khopland.dependency.snapshot.dto.DiffReportModel;
-import com.github.khopland.dependency.snapshot.dto.ProjectSnapshot;
-import com.github.khopland.dependency.snapshot.dto.SnapshotDocument;
+import io.github.khopland.dependency.snapshot.dto.DiffReportModel;
+import io.github.khopland.dependency.snapshot.dto.ProjectSnapshot;
+import io.github.khopland.dependency.snapshot.dto.SnapshotDocument;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;

@@ -1,7 +1,7 @@
-package com.github.khopland.dependency.snapshot;
+package io.github.khopland.dependency.snapshot;
 
 
-import com.github.khopland.dependency.snapshot.dto.DiffReportModel;
+import io.github.khopland.dependency.snapshot.dto.DiffReportModel;
 import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;

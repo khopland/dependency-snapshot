@@ -1,4 +1,4 @@
-package com.github.khopland.dependency.snapshot;
+package io.github.khopland.dependency.snapshot;
 
 import org.apache.maven.project.MavenProject;
 import org.junit.jupiter.api.Test;

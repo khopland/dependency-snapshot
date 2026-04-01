@@ -1,4 +1,4 @@
-package com.github.khopland.dependency.snapshot.dto;
+package io.github.khopland.dependency.snapshot.dto;
 
 import java.time.Instant;
 import java.util.List;

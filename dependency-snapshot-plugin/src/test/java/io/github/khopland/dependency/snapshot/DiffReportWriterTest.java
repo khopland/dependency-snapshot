@@ -1,8 +1,8 @@
-package com.github.khopland.dependency.snapshot;
+package io.github.khopland.dependency.snapshot;
 
-import com.github.khopland.dependency.snapshot.dto.DiffReportModel;
-import com.github.khopland.dependency.snapshot.dto.ReportSummary;
-import com.github.khopland.dependency.snapshot.dto.SnapshotDocument;
+import io.github.khopland.dependency.snapshot.dto.DiffReportModel;
+import io.github.khopland.dependency.snapshot.dto.ReportSummary;
+import io.github.khopland.dependency.snapshot.dto.SnapshotDocument;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 

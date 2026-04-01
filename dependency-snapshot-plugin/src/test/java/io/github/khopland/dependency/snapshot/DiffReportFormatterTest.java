@@ -1,6 +1,6 @@
-package com.github.khopland.dependency.snapshot;
+package io.github.khopland.dependency.snapshot;
 
-import com.github.khopland.dependency.snapshot.dto.*;
+import io.github.khopland.dependency.snapshot.dto.*;
 import org.junit.jupiter.api.Test;
 
 import java.time.Instant;

@@ -1,4 +1,4 @@
-package com.github.khopland.dependency.snapshot;
+package io.github.khopland.dependency.snapshot;
 
 
 import tools.jackson.databind.ObjectMapper;
